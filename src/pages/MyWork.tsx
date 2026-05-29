@@ -107,10 +107,8 @@ function TaskCard({ task, onClick }: { task: any; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      style={{
-        ...taskCardStyle,
-        borderLeft: task.isCorrection ? '4px solid var(--status-correction)' : undefined,
-      }}
+      className={task.isCorrection ? 'border-accent-correction' : undefined}
+      style={taskCardStyle}
     >
       {/* App badge */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>

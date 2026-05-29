@@ -15,7 +15,7 @@ export default function AuditOps() {
   return (
     <div style={{ background: 'var(--surface-page)', minHeight: '100vh' }}>
       {/* Hero */}
-      <div style={heroStyle}>
+      <div className="hero-gradient" style={heroStyle}>
         <div style={heroInner}>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.7)', marginBottom: 6, letterSpacing: '0.06em', textTransform: 'uppercase' }}>

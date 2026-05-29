@@ -3,8 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { useRoleGuard } from '../hooks/useRoleGuard';
 import { useAuditStore } from '../store/auditStore';
 
-const APPS = ['Pravesh', 'Beejak', 'Trinity', 'Matrix', 'Velocity'];
-const REVIEW_TYPES = ['R1 — ITGC Business System', 'R2 — Access Certification', 'R3 — SOC2 Evidence'];
+/** Governance CSV: IAM Audit List — six review categories (masters in production). */
+export const REVIEW_TYPES = [
+  'ITGC Business System',
+  'Privilege Access Review (System Manager Role)',
+  '3P Employees with Business Application access',
+  'Users with Exception Access',
+  'PeopleStrong Internal Audit',
+  'System ID Review With API Key and API Secret',
+] as const;
+
+/** Apps per type — demo uses ITGC five; production loads from Review Type master. */
+const APPS_BY_TYPE: Record<string, string[]> = {
+  'ITGC Business System': ['Pravesh', 'Beejak', 'Trinity', 'Matrix', 'Velocity'],
+  'Privilege Access Review (System Manager Role)': [
+    'Pravesh', 'Beejak', 'Trinity', 'Matrix', 'Velocity', 'CAS', 'Nimbus',
+  ],
+  '3P Employees with Business Application access': ['Velocity', 'Matrix', 'Trinity', 'Pravesh'],
+  'Users with Exception Access': ['Velocity', 'Pravesh', 'Trinity'],
+  'PeopleStrong Internal Audit': ['CAS', 'G-suite'],
+  'System ID Review With API Key and API Secret': [
+    'Pravesh', 'Beejak', 'Trinity', 'Matrix', 'Velocity', 'CAS', 'Nimbus',
+  ],
+};
 
 export default function CreateAudit() {
   const ok = useRoleGuard(['lead']);
@@ -13,12 +34,22 @@ export default function CreateAudit() {
   const [step, setStep] = useState(1);
 
   // Step 1
-  const [reviewType, setReviewType] = useState(REVIEW_TYPES[0]);
+  const [reviewType, setReviewType] = useState<string>(REVIEW_TYPES[0]);
   const [period, setPeriod] = useState('May 2026');
-  const [title, setTitle] = useState('R1 ITGC — May 2026');
+  const [title, setTitle] = useState('ITGC Business System — May 2026');
+
+  const appsForType = APPS_BY_TYPE[reviewType] ?? APPS_BY_TYPE['ITGC Business System'];
 
   // Step 2
-  const [selectedApps, setSelectedApps] = useState<string[]>([...APPS]);
+  const [selectedApps, setSelectedApps] = useState<string[]>([...appsForType]);
+
+  function handleReviewTypeChange(next: string) {
+    setReviewType(next);
+    const apps = APPS_BY_TYPE[next] ?? [];
+    setSelectedApps([...apps]);
+    const short = next.includes('ITGC') ? 'ITGC' : next.split(' ')[0];
+    setTitle(`${short} — ${period}`);
+  }
 
   function toggleApp(app: string) {
     setSelectedApps((prev) =>
@@ -46,7 +77,7 @@ export default function CreateAudit() {
 
         <h1 style={{ fontSize: 22, fontWeight: 600, marginBottom: 6 }}>Create audit</h1>
         <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 32 }}>
-          Set up a new ITGC audit cycle
+          Choose a review category from your governance catalogue and start a new audit cycle
         </p>
 
         {/* Stepper */}
@@ -85,13 +116,13 @@ export default function CreateAudit() {
               reviewType={reviewType}
               period={period}
               title={title}
-              onReviewType={setReviewType}
+              onReviewType={handleReviewTypeChange}
               onPeriod={setPeriod}
               onTitle={setTitle}
             />
           )}
           {step === 2 && (
-            <Step2 selectedApps={selectedApps} onToggle={toggleApp} />
+            <Step2 apps={appsForType} selectedApps={selectedApps} onToggle={toggleApp} />
           )}
           {step === 3 && (
             <Step3 reviewType={reviewType} period={period} title={title} apps={selectedApps} />
@@ -136,15 +167,15 @@ function Step1({ reviewType, period, title, onReviewType, onPeriod, onTitle }: a
   );
 }
 
-function Step2({ selectedApps, onToggle }: any) {
+function Step2({ apps, selectedApps, onToggle }: { apps: string[]; selectedApps: string[]; onToggle: (app: string) => void }) {
   return (
     <div>
       <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 4 }}>Applications in scope</h2>
       <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 20 }}>
-        Select the applications to include in this audit cycle.
+        Select the applications to include in this audit cycle (from master data for this review type).
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {APPS.map((app) => {
+        {apps.map((app) => {
           const checked = selectedApps.includes(app);
           return (
             <label

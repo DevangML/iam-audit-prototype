@@ -3,6 +3,9 @@
   --brand-700: #0d47a1;
   --hero-start: #0b5cab;
   --hero-end: #1e88e5;
+  --hero-start-p3: color(display-p3 0.04 0.36 0.67);
+  --hero-end-p3: color(display-p3 0.12 0.53 0.9);
+  --brand-500-p3: color(display-p3 0.1 0.46 0.82);
   --surface-page: #f4f7fb;
   --surface-card: #ffffff;
   --border-card: #e3e8ef;
@@ -10,8 +13,12 @@
   --text-secondary: #5a6b7d;
   --status-open: #0288d1;
   --status-correction: #e65100;
+  --status-correction-p3: color(display-p3 0.92 0.38 0.05);
   --status-reject: #c62828;
+  --status-reject-p3: color(display-p3 0.78 0.16 0.16);
   --status-ready: #1b7a3d;
+  --status-ready-p3: color(display-p3 0.2 0.75 0.45);
+  --status-ready-glow: color(display-p3 0.2 0.75 0.45 / 0.15);
   --status-pending: #5e35b1;
   --chip-draft-bg: #eceff1;
   --chip-draft-text: #455a64;

@@ -55,7 +55,7 @@ export default function AuditDetail({ forceNewTask }: { forceNewTask?: boolean }
   return (
     <div style={{ background: 'var(--surface-page)', minHeight: '100vh' }}>
       {/* Hero — ONE per audit detail */}
-      <div style={heroStyle}>
+      <div className="hero-gradient" style={heroStyle}>
         <div style={heroInner}>
           <div style={{ flex: 1 }}>
             {isL1Remediation && (

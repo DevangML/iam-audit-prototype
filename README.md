@@ -1,8 +1,13 @@
 # IAM Audit — Interactive Prototype
 
-**Ticket:** RECO-4618 · **Pilot:** R1 ITGC May 2026 · **Org:** ElasticRun
+**Ticket:** RECO-4618 · **Pilot demo:** ITGC Business System — May 2026 · **Org:** ElasticRun
 
 A fully interactive, client-side prototype of the IAM Audit tool. No backend — all state lives in Zustand with seeded demo data.
+
+**Stakeholder scope (what we deliver vs not):**  
+`_bmad-output/planning-artifacts/claude-prototype/DELIVERY-SCOPE.md`
+
+**Design:** sRGB tokens + **Display P3 (wide gamut / HDR-ready)** fallbacks in `src/styles/tokens.css` and `.hero-gradient` / `.border-accent-*` in `global.css`.
 
 ## Quick start
 

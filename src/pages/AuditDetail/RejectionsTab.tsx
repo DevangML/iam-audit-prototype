@@ -130,10 +130,11 @@ function RejectionCard({
   }
 
   return (
-    <div style={{
+    <div
+      className="border-accent-reject"
+      style={{
       background: 'var(--surface-card)',
       border: '1px solid var(--border-card)',
-      borderLeft: '4px solid var(--status-reject)',
       borderRadius: 'var(--radius-sm)',
       boxShadow: 'var(--shadow-card)',
       padding: '18px 20px',

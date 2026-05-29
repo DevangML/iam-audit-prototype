@@ -172,6 +172,31 @@ label { font-size: 13px; font-weight: 500; color: var(--text-secondary); display
 .text-ready { color: var(--status-ready); }
 .text-secondary { color: var(--text-secondary); }
 
+/* Wide gamut (Display P3) + sRGB fallback — HDR-ready per UX §8.1 */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--hero-start), var(--hero-end));
+}
+@supports (color: color(display-p3 1 1 1)) {
+  .hero-gradient {
+    background: linear-gradient(135deg, var(--hero-start-p3), var(--hero-end-p3));
+  }
+}
+
+.border-accent-correction {
+  border-left: 4px solid var(--status-correction);
+}
+.border-accent-reject {
+  border-left: 4px solid var(--status-reject);
+}
+@supports (color: color(display-p3 1 1 1)) {
+  .border-accent-correction {
+    border-left-color: var(--status-correction-p3);
+  }
+  .border-accent-reject {
+    border-left-color: var(--status-reject-p3);
+  }
+}
+
 /* Utilities */
 .flex { display: flex; }
 .flex-col { flex-direction: column; }

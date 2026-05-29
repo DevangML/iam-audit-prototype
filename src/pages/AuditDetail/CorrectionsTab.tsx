@@ -107,10 +107,11 @@ function CorrectionCard({
   const sc = statusColors[correction.status] ?? statusColors.open;
 
   return (
-    <div style={{
+    <div
+      className="border-accent-correction"
+      style={{
       background: 'var(--surface-card)',
       border: '1px solid var(--border-card)',
-      borderLeft: '4px solid var(--status-correction)',
       borderRadius: 'var(--radius-sm)',
       boxShadow: 'var(--shadow-card)',
       padding: '18px 20px',
