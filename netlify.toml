@@ -1,0 +1,16 @@
+# Netlify — connect repo in UI; no extra settings required.
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--include=dev"
+
+# React Router (client-side) — direct URL loads and refreshes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

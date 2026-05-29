@@ -17,6 +17,15 @@ npm run dev
 # Opens at http://localhost:5173
 ```
 
+## Deploy on Netlify (GitHub)
+
+1. Push this repo to GitHub.
+2. In [Netlify](https://app.netlify.com): **Add new site** → **Import an existing project** → **GitHub** → select the repo.
+3. Netlify reads `netlify.toml` automatically (build: `npm ci && npm run build`, publish: `dist`, Node 20, SPA redirects). Click **Deploy site**.
+4. Every push to the connected branch triggers a new deploy.
+
+No environment variables or plugins required for this prototype.
+
 ## Demo login
 
 Navigate to `/login` (or any protected route — you'll be redirected). Select a profile:
